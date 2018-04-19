@@ -6,8 +6,11 @@ var router = express.Router();
 var config = require('../../config');
 
 var User = require('../../models/user.model');
+var {
+  userExist
+} = require('../../functions/authentication');
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', userExist, async (req, res) => {
   try {
     let user = new User();
     user.email = req.body.email;

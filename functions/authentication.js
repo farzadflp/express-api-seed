@@ -82,3 +82,26 @@ module.exports.permit = (...roles) => {
         }
     }
 }
+
+module.exports.userExist = async (req, res, next) => {
+    try {
+        let user = await User.findOne({
+            email: req.body.email
+        });
+        if (user) {
+            res.send({
+                status: 'fail',
+                data: {
+                    message: 'email already registered.'
+                }
+            })
+        } else {
+            next();
+        }
+    } catch (error) {
+        res.send({
+            status: "error",
+            error: error
+        })
+    }
+}
