@@ -5,7 +5,7 @@ var router = express.Router();
 
 var config = require('../../config');
 
-var User = require('../../models/user.modelauth,');
+var User = require('../../models/user.model');
 var {
   auth,
   userExist
