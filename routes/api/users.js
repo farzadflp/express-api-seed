@@ -5,8 +5,9 @@ var router = express.Router();
 
 var config = require('../../config');
 
-var User = require('../../models/user.model');
+var User = require('../../models/user.modelauth,');
 var {
+  auth,
   userExist
 } = require('../../functions/authentication');
 
@@ -71,5 +72,12 @@ router.post('/signin', async (req, res) => {
     })
   }
 });
-
+router.post('/verify', auth, (req, res) => {
+  return res.send({
+    status: 'success',
+    data: {
+      user: req.user
+    }
+  })
+})
 module.exports = router;
