@@ -1,7 +1,21 @@
 let jwt = require('jsonwebtoken');
+let RateLimit = require('express-rate-limit');
 
 let User = require('../models/user.model');
 let config = require('../config');
+
+/**
+ * @description SignIn/Up rateLimiter
+ * @param {number} windowM minutes - how long to keep records of requests in memory.
+ * @param {number} max max number of connections during windowM milliseconds before sending a 429 response.
+ */
+module.exports.limiter = (windowM, max) => {
+    return new RateLimit({
+        windowMs: windowM * 60 * 1000,
+        max: max,
+        delayMs: 0
+    })
+}
 
 module.exports.auth = (req, res, next) => {
     let token = req.headers['x-access-token'] || req.body.token;

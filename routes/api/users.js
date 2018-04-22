@@ -8,10 +8,11 @@ var config = require('../../config');
 var User = require('../../models/user.model');
 var {
   auth,
+  limiter,
   userExist
 } = require('../../functions/authentication');
 
-router.post('/signup', userExist, async (req, res) => {
+router.post('/signup', limiter(5, 3), userExist, async (req, res) => {
   try {
     let user = new User();
     user.email = req.body.email;
@@ -31,7 +32,7 @@ router.post('/signup', userExist, async (req, res) => {
   }
 });
 
-router.post('/signin', async (req, res) => {
+router.post('/signin', limiter(2, 5), async (req, res) => {
   try {
     let user = await User.findOne({
       email: req.body.email
@@ -72,6 +73,7 @@ router.post('/signin', async (req, res) => {
     })
   }
 });
+
 router.post('/verify', auth, (req, res) => {
   return res.send({
     status: 'success',
