@@ -8,6 +8,7 @@ var config = require('../../config');
 var User = require('../../models/user.model');
 var {
   auth,
+  permit,
   limiter,
   userExist
 } = require('../../functions/authentication');
@@ -81,5 +82,5 @@ router.post('/verify', auth, (req, res) => {
       user: req.user
     }
   })
-})
+});
 module.exports = router;
