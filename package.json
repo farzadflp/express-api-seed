@@ -1,0 +1,19 @@
+{
+  "name": "apta-base",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "latest",
+    "debug": "latest",
+    "ejs": "latest",
+    "express": "latest",
+    "express-rate-limit": "latest",
+    "http-errors": "latest",
+    "jsonwebtoken": "latest",
+    "md5": "latest",
+    "mongoose": "latest",
+    "morgan": "latest"
+  }
+}
