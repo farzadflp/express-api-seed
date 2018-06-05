@@ -8,5 +8,4 @@ router.all('/', (req, res) => {
     status: 'success'
   })
 });
-
 module.exports = router;

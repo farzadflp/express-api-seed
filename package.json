@@ -1,6 +1,7 @@
 {
   "name": "apta-base",
   "version": "0.0.0",
+  "author": "FarzadFalahpour",
   "scripts": {
     "start": "nodemon ./bin/www"
   },

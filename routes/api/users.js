@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken');
 var md5 = require('md5');
 var router = express.Router();
 
-var config = require('../../config');
+var config = require('../../config');//config mongodb 
 
 var User = require('../../models/user.model');
 var {
@@ -13,7 +13,7 @@ var {
   userExist
 } = require('../../functions/authentication');
 
-router.post('/signup', limiter(5, 3), userExist, async (req, res) => {
+router.post('/signup', limiter(5, 4), userExist, async (req, res) => {
   try {
     let user = new User();
     user.email = req.body.email;
