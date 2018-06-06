@@ -37,5 +37,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-mongoose.connect(require('./config').mongo_uri);
+mongoose.connect(require('./config').mongo_uri);//config mongo
 module.exports = app;
