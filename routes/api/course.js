@@ -57,4 +57,20 @@ router.post('/' , auth , permit('teacher') , ( req , res ) =>{
     });
 });
 
+router.delete('/:id' , auth , permit('teacher') , ( req , res ) => {
+    Course.findByIdAndRemove(req.params.id).then( course  => {
+            res.send({
+                status:'success',
+                data:{
+                    course: course   
+                }
+            }); 
+        
+    }).catch(error => {
+            res.send({
+                status:'error',
+                error: err 
+            })
+    });
+});
 module.exports = router ;
