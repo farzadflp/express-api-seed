@@ -13,7 +13,7 @@ var userSchema = new Schema({
     status: {
         type: String,
         required: true,
-        default: 'inactive',
+        default: 'active',
         enum: ['active', 'inactive', 'block']
     },
     role: {
@@ -21,7 +21,26 @@ var userSchema = new Schema({
         required: true,
         default: 'student',
         enum: ['teacher', 'student']
+    },
+    username: {
+        type: String//,
+       // required: true
+    },
+    firstname: {
+        type: String//,
+        //required: true
+    },
+    lastname: {
+        type: String//,
+       // required: true 
+    },
+    suggestion:{ 
+        type: [String]
+    },
+    listOfCourse:{
+        type: [String]
     }
+    
 });
 
 module.exports = mongoose.model('user', userSchema);

@@ -3,6 +3,7 @@ let router = express.Router();
 let Course = require('../../models/course.model');
 let {auth,permit} = require('../../functions/authentication');
 
+// get all courses
 router.get('/' , ( req , res ) =>{
     Course.find({}).then( courses  => {
             res.send({
@@ -20,6 +21,7 @@ router.get('/' , ( req , res ) =>{
     });
 });
 
+//get one course by id
 router.get('/:id' , ( req , res ) => {
     Course.findById(req.params.id , (err , course ) => {
         if (err) {
@@ -38,6 +40,7 @@ router.get('/:id' , ( req , res ) => {
     });  
 });
 
+//add new course by teacher
 router.post('/' , auth , permit('teacher') , ( req , res ) =>{
     let course = new Course(req.body);
     course.save(err => {
@@ -50,13 +53,35 @@ router.post('/' , auth , permit('teacher') , ( req , res ) =>{
             res.send({
                 status:'success',
                 data:{
-                    message:"course successfully added"
+                    message:"course successfully added",
+                    id: course._id
                 } 
             }); 
         }
     });
 });
 
+//update course by teacher
+router.post('/update/:id' , auth , permit('teacher') , ( req , res ) => {
+    Course.findByIdAndUpdate(req.params.id , req.body ).then( (course) => {
+        res.send({
+            status: 'success',
+            data: {
+                message: "course successfully updated",
+                id: course._id,
+                previousTitle: course.title,
+                newTitle: req.body.title 
+            }
+        });
+    }).catch( (error) => {
+        res.send({
+            status:'error',
+            error: err 
+        })
+    });
+});
+
+//remove one course
 router.delete('/:id' , auth , permit('teacher') , ( req , res ) => {
     Course.findByIdAndRemove(req.params.id).then( course  => {
             res.send({
@@ -73,4 +98,5 @@ router.delete('/:id' , auth , permit('teacher') , ( req , res ) => {
             })
     });
 });
+
 module.exports = router ;

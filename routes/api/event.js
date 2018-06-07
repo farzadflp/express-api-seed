@@ -50,7 +50,8 @@ router.post('/' , auth , permit('teacher') , ( req , res ) =>{
             res.send({
                 status:'success',
                 data:{
-                    message:"event successfully added"
+                    message:"event successfully added",
+                    id: event._id
                 } 
             }); 
         }

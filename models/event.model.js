@@ -1,10 +1,14 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var eventSchema = new Schema({
-    name:{
+    idOfCourse:{
         type: String,
         require: true
     },
+    name: {
+        type: String,
+        require: true
+    } ,
     description:{
         type: String
     },
@@ -14,9 +18,8 @@ var eventSchema = new Schema({
     },
     date:{
         type: String ,
-       // require: true
+        require: true
     }
-    
 });
 
-module.exports = mongoose.model('event' , eventSchema)
+module.exports = mongoose.model('event' , eventSchema);

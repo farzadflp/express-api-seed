@@ -83,4 +83,5 @@ router.post('/verify', auth, (req, res) => {
     }
   })
 });
+
 module.exports = router;

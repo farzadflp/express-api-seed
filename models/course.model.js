@@ -11,7 +11,10 @@ var courseSchema = new Schema({
     createAt:{
         type:Date,
         default:Date.now()
+    },
+    members:{
+        type: [String]
     }
 });
 
-module.exports = mongoose.model('course' , courseSchema)
+module.exports = mongoose.model('course' , courseSchema);
