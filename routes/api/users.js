@@ -83,5 +83,21 @@ router.post('/verify', auth, (req, res) => {
     }
   })
 });
-
+//get course for student
+router.post('/:id', auth, permit('student'), (req, res) => {
+  User.findById(req.params.id).then((user) => {
+    res.send({
+      status: 'success',
+      data: {
+        message: "list of course",
+        listOfCourse: user.listOfCourse
+      }
+    });
+  }).catch((error) => {
+    res.send({
+      status: 'error',
+      error: err
+    });
+  });
+});
 module.exports = router;
