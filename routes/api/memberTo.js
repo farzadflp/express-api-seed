@@ -6,6 +6,13 @@ let { auth, permit } = require('../../functions/authentication');
 
 router.post('/:id', auth, permit('student'), (req, res) => {
     Course.update({ _id: req.params.id }, { $push: { members: req.body.id } }).then((course) => {
+        User.update( { _id: req.body.id } , { $push: { listOfCourse: req.params.id } }).then((user) => {
+        }).catch(error => {
+            res.send({
+                status: 'error',
+                error: err
+            });
+        });
         res.send({
             status: 'success',
             data: {
@@ -15,10 +22,11 @@ router.post('/:id', auth, permit('student'), (req, res) => {
         });
     }).catch(error => {
         res.send({
-            status:'error',
-            error: err 
+            status: 'error',
+            error: err
         });
-});
+    });
+ 
 
 });
 

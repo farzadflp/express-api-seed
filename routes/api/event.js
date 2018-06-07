@@ -3,6 +3,7 @@ let router = express.Router();
 let Event = require('../../models/event.model');
 let {auth,permit} = require('../../functions/authentication');
 
+
 router.get('/' , ( req , res ) =>{
     Event.find({}).then( events  => {
             res.send({
@@ -20,6 +21,7 @@ router.get('/' , ( req , res ) =>{
     });
 });
 
+//get one event by id
 router.get('/:id' , ( req , res ) => {
     Event.findById(req.params.id , (err , event ) => {
         if (err) {
@@ -38,6 +40,7 @@ router.get('/:id' , ( req , res ) => {
     });  
 });
 
+//add event
 router.post('/' , auth , permit('teacher') , ( req , res ) =>{
     let event = new Event(req.body);
     event.save(err => {
@@ -58,6 +61,7 @@ router.post('/' , auth , permit('teacher') , ( req , res ) =>{
     });
 });
 
+//remove event
 router.delete('/:id' , auth , permit('teacher') , ( req , res ) => {
     Event.findByIdAndRemove(req.params.id).then( event  => {
             res.send({
