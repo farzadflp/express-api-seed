@@ -2,8 +2,11 @@ let express = require('express');
 let router = express.Router();
 let Course = require('../../models/course.model');
 let {auth,permit} = require('../../functions/authentication');
-
+/*
 // get all courses
+//key value hae ke bayad send shavad:
+//token
+*/
 router.get('/' , ( req , res ) =>{
     Course.find({}).then( courses  => {
             res.send({
@@ -20,8 +23,12 @@ router.get('/' , ( req , res ) =>{
             })
     });
 });
-
+/*
 //get one course by id
+//key value hae ke bayad send shavad:
+//token 
+//id course dar url vared shavad
+*/
 router.get('/:id' , ( req , res ) => {
     Course.findById(req.params.id , (err , course ) => {
         if (err) {
@@ -40,7 +47,11 @@ router.get('/:id' , ( req , res ) => {
     });  
 });
 
+/*
 //add new course by teacher
+//key value hae ke bayad send shavad:
+//token , title
+*/
 router.post('/' , auth , permit('teacher') , ( req , res ) =>{
     let course = new Course(req.body);
     course.save(err => {
@@ -61,7 +72,12 @@ router.post('/' , auth , permit('teacher') , ( req , res ) =>{
     });
 });
 
+/*
 //update course by teacher
+//key value hae ke bayad send shavad:
+//token , title
+//id course dar url vared shavad
+*/
 router.post('/update/:id' , auth , permit('teacher') , ( req , res ) => {
     Course.findByIdAndUpdate(req.params.id , req.body ).then( (course) => {
         res.send({
@@ -80,8 +96,12 @@ router.post('/update/:id' , auth , permit('teacher') , ( req , res ) => {
         })
     });
 });
-
+/*
 //remove one course
+//key value hae ke bayad send shavad:
+//token
+// id course dar url vared shavad
+*/
 router.delete('/:id' , auth , permit('teacher') , ( req , res ) => {
     Course.findByIdAndRemove(req.params.id).then( course  => {
             res.send({
@@ -99,4 +119,5 @@ router.delete('/:id' , auth , permit('teacher') , ( req , res ) => {
     });
 });
 
+//=============================================================================================
 module.exports = router ;

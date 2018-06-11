@@ -2,7 +2,8 @@ var express = require('express');
 var jwt = require('jsonwebtoken');
 var md5 = require('md5');
 var router = express.Router();
-
+var Course = require('../../models/course.model');
+var User = require('../../models/user.model');
 var config = require('../../config');//config mongodb 
 
 var User = require('../../models/user.model');
@@ -13,6 +14,11 @@ var {
   userExist
 } = require('../../functions/authentication');
 
+/*
+//key value hae ke bayad ersal shavad:
+//email, password 
+*/
+
 router.post('/signup', limiter(5, 4), userExist, async (req, res) => {
   try {
     let user = new User();
@@ -22,7 +28,8 @@ router.post('/signup', limiter(5, 4), userExist, async (req, res) => {
     res.send({
       status: 'success',
       data: {
-        message: 'user account created.'
+        message: 'user account created.',
+        user: user
       }
     })
   } catch (error) {
@@ -83,7 +90,12 @@ router.post('/verify', auth, (req, res) => {
     }
   })
 });
+/*
 //get course for student
+//key value hae ke bayad send shavad:
+//token 
+//student id khod ra dar url vared mikonad
+*/
 router.post('/:id', auth, permit('student'), (req, res) => {
   User.findById(req.params.id).then((user) => {
     res.send({

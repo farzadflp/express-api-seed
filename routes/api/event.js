@@ -3,7 +3,11 @@ let router = express.Router();
 let Event = require('../../models/event.model');
 let {auth,permit} = require('../../functions/authentication');
 
-
+/*
+// get all Events
+//key value hae ke bayad send shavad:
+//token
+*/
 router.get('/' , ( req , res ) =>{
     Event.find({}).then( events  => {
             res.send({
@@ -21,7 +25,13 @@ router.get('/' , ( req , res ) =>{
     });
 });
 
-//get one event by id
+
+/*
+//get one Event by id
+//key value hae ke bayad send shavad:
+//token  
+//id Event dar url vared shavad
+*/
 router.get('/:id' , ( req , res ) => {
     Event.findById(req.params.id , (err , event ) => {
         if (err) {
@@ -40,7 +50,11 @@ router.get('/:id' , ( req , res ) => {
     });  
 });
 
-//add event
+/*
+//add new course by teacher
+//key value hae ke bayad send shavad:
+//token , idOfCourse , name , date
+*/
 router.post('/' , auth , permit('teacher') , ( req , res ) =>{
     let event = new Event(req.body);
     event.save(err => {
@@ -61,7 +75,12 @@ router.post('/' , auth , permit('teacher') , ( req , res ) =>{
     });
 });
 
-//remove event
+/*
+//remove one Event
+//key value hae ke bayad send shavad:
+//token
+// id course dar url vared shavad
+*/
 router.delete('/:id' , auth , permit('teacher') , ( req , res ) => {
     Event.findByIdAndRemove(req.params.id).then( event  => {
             res.send({

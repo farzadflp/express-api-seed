@@ -3,6 +3,10 @@ let router = express.Router();
 let User = require('../../models/user.model');
 let { auth, permit } = require('../../functions/authentication');
 
+//teacher  send id of course   to Student
+//key value hae ke bayad send shavad:
+//token , suggestion
+//id student dar url neveshte mishavad
 router.post('/:id', auth, permit('teacher'), (req, res) => {
     User.update({ _id: req.params.id }, { $push: { suggestion: req.body.suggestion } }).then((user) => {
         res.send({
@@ -20,4 +24,5 @@ router.post('/:id', auth, permit('teacher'), (req, res) => {
 });
 
 });
+//================================================================================================================
 module.exports = router;
