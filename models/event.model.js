@@ -1,25 +1,26 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var eventSchema = new Schema({
-    idOfCourse:{
-        type: String,
+    idOfCourse: {
+        type: Schema.ObjectId,
+        ref: 'course',
         require: true
     },
     name: {
         type: String,
         require: true
-    } ,
-    description:{
+    },
+    description: {
         type: String
     },
-    createAt:{
+    createAt: {
         type: Date,
         default: Date.now()
     },
-    date:{
-        type: String ,
+    date: {
+        type: String,
         require: true
     }
 });
 
-module.exports = mongoose.model('event' , eventSchema);
+module.exports = mongoose.model('event', eventSchema);

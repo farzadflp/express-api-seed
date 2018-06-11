@@ -16,12 +16,16 @@ var {
 
 /*
 //key value hae ke bayad ersal shavad:
-//email, password 
+//email, password ,firstname , lastname , username , role
 */
 
 router.post('/signup', limiter(5, 4), userExist, async (req, res) => {
   try {
     let user = new User();
+    user.firstname = req.body.firstname;
+    user.lastname = req.body.lastname;
+    user.username = req.body.username;
+    user.role = req.body.role;
     user.email = req.body.email;
     user.password = req.body.password ? md5(req.body.password) : undefined;
     await user.save();
@@ -98,13 +102,13 @@ router.post('/verify', auth, (req, res) => {
 */
 router.post('/:id', auth, permit('student'), (req, res) => {
   User.findById(req.params.id).then((user) => {
-    res.send({
-      status: 'success',
-      data: {
-        message: "list of course",
-        listOfCourse: user.listOfCourse
-      }
-    });
+      res.send({
+        status: 'success',
+        data: {
+          message: "list of course",
+          listOfCourse: user.listOfCourse
+        }
+      });
   }).catch((error) => {
     res.send({
       status: 'error',

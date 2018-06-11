@@ -12,19 +12,19 @@ let { auth, permit } = require('../../functions/authentication');
 */
 router.post('/:id', auth, permit('student'), (req, res) => {
     Course.update({ _id: req.params.id }, { $push: { members: req.body.idOfStudent } }).then((course) => {
-        User.update({ _id: req.body.id }, { $push: { listOfCourse: req.params.id } }).then((user) => {
+        User.update({ _id: req.body.idOfStudent }, { $push: { listOfCourse: req.params.id } }).then((user) => {
+            res.send({
+                status: 'success',
+                data: {
+                    message: "you added to course",
+                    yourId: req.body.idOfStudent,
+                }
+            });
         }).catch(error => {
             res.send({
                 status: 'error',
                 error: err
             });
-        });
-        res.send({
-            status: 'success',
-            data: {
-                message: "you added to course",
-                yourId: req.body.idOfStudent
-            }
         });
     }).catch(error => {
         res.send({

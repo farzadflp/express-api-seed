@@ -23,24 +23,24 @@ var userSchema = new Schema({
         enum: ['teacher', 'student']
     },
     username: {
-        type: String//,
-       // required: true
+        type: String,
+        required: true
     },
     firstname: {
-        type: String//,
-        //required: true
+        type: String,
+        required: true
     },
     lastname: {
-        type: String//,
-       // required: true 
+        type: String,
+        required: true
     },
-    suggestion:{ 
+    suggestion: {
         type: [String]
     },
-    listOfCourse:{
+    listOfCourse: {
         type: [String]
     }
-    
+
 });
 
 module.exports = mongoose.model('user', userSchema);
